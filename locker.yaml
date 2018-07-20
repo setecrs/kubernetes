@@ -1,0 +1,35 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: locker
+spec:
+  selector:
+    app: locker
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: locker
+  labels:
+    app: locker
+  namespace: default
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: locker
+    spec:
+      containers:
+      - name: locker
+        image: ipeddocker/locker:1.0.0
+        ports:
+        - containerPort: 80
+
