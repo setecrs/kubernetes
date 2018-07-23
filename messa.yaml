@@ -1,0 +1,37 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: messa
+spec:
+  selector:
+    app: messa
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: messa
+  labels:
+    app: messa
+  namespace: default
+spec:
+  replicas: 3
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: messa
+    spec:
+      containers:
+      - name: messa
+        image: setecrs/ipedqueue
+        ports:
+        - containerPort: 80
+        command: ["node"]
+        args:
+        - lib/view.js
