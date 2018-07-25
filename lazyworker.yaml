@@ -1,0 +1,82 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: lazyworker-daemon
+  namespace: default
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: lazyworker
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: lazyworker
+    spec:
+      containers:
+      - image: 192.168.2.191:5001/ipeddocker/ipedworker:1.2.22
+        imagePullPolicy: IfNotPresent
+        name: lazyworker
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "12"
+            memory: 32Gi
+          requests:
+            cpu: "12"
+            memory: 32Gi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        env:
+        - name: LOCK_URL
+          value: http://$(LOCKER_SERVICE_HOST):$(LOCKER_SERVICE_PORT)
+        - name: NOTIFY_URL
+          value: http://$(MONGO_NOTIFIER_SERVICE_HOST):$(MONGO_NOTIFIER_SERVICE_PORT)
+        volumeMounts:
+        - mountPath: /mnt/ipedtmp
+          name: ipedtmp
+        - mountPath: /mnt/cloud/operacoes
+          name: operacoes
+        - mountPath: /operacoes
+          name: operacoes
+        - mountPath: /mnt/led
+          name: led
+        - mountPath: /mnt/kff
+          name: kff
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /mnt/ipedtmp/
+          type: Directory
+        name: ipedtmp
+      - cephfs:
+          monitors:
+          - 192.168.2.42:6789
+          user: admin
+          secretRef:
+            name: ceph-secret
+          path: /operacoes/
+        name: operacoes
+      - cephfs:
+          monitors:
+          - 192.168.2.42:6789
+          user: admin
+          secretRef:
+            name: ceph-secret
+          path: /led/V1.24.00
+        name: led
+      - cephfs:
+          monitors:
+          - 192.168.2.42:6789
+          user: admin
+          secretRef:
+            name: ceph-secret
+          path: /kff/iped-kff-1.2
+        name: kff
