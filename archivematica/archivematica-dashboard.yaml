@@ -44,7 +44,7 @@ spec:
           value: settings.local
         - name: FORWARDED_ALLOW_IPS
           value: '*'
-        image: archivematica-dashboard
+        image: 192.168.2.191:5001/archivematica-dashboard:setec-1.0.0
         name: archivematica-dashboard
         resources: {}
         volumeMounts:
