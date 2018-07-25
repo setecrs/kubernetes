@@ -1,0 +1,16 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+  name: rbd
+parameters:
+  adminSecretName: rbd-secret
+  adminSecretNamespace: archivematica
+  imageFeatures: layering
+  imageFormat: "2"
+  monitors: 192.168.2.42:6789
+  userSecretName: rbd-secret
+provisioner: ceph.com/rbd
+reclaimPolicy: Delete
+volumeBindingMode: Immediate

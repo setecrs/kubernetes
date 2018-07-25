@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /home/atila.alr/go/bin/kompose convert -f docker-compose.yml
+    kompose.version: 1.15.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: redis
+  name: redis
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: redis
+    spec:
+      containers:
+      - args:
+        - --save
+        - ""
+        - --appendonly
+        - "no"
+        image: redis:3.2-alpine
+        name: redis
+        ports:
+        - containerPort: 6379
+        resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: /home/atila.alr/go/bin/kompose convert -f docker-compose.yml
+    kompose.version: 1.15.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: redis
+  name: redis
+spec:
+  ports:
+  - name: "62003"
+    port: 62003
+    targetPort: 6379
+  selector:
+    io.kompose.service: redis
+status:
+  loadBalancer: {}
+---

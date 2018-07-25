@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: cephfs
+parameters:
+  adminSecretName: rbd-secret
+  adminSecretNamespace: archivematica
+  claimRoot: /archivematica
+  monitors: 192.168.2.42:6789
+provisioner: ceph.com/cephfs
+reclaimPolicy: Delete
+volumeBindingMode: Immediate

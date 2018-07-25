@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /home/atila.alr/go/bin/kompose convert -f docker-compose.yml
+    kompose.version: 1.15.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: clamavd
+  name: clamavd
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: clamavd
+    spec:
+      containers:
+      - image: artefactual/clamav:latest
+        name: clamavd
+        ports:
+        - containerPort: 3310
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/archivematica/sharedDirectory
+          name: am-pipeline-data
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - name: am-pipeline-data
+        persistentVolumeClaim:
+          claimName: am-pipeline-data
+          readOnly: true
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: /home/atila.alr/go/bin/kompose convert -f docker-compose.yml
+    kompose.version: 1.15.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: clamavd
+  name: clamavd
+spec:
+  ports:
+  - name: "62006"
+    port: 62006
+    targetPort: 3310
+  selector:
+    io.kompose.service: clamavd
+status:
+  loadBalancer: {}
+---
