@@ -15,7 +15,7 @@ spec:
         app: ipedworker
     spec:
       containers:
-      - image: 192.168.2.191:5001/ipeddocker/ipedworker:1.2.22
+      - image: 192.168.2.191:5001/ipeddocker/worker-go:2.0.3
         imagePullPolicy: IfNotPresent
         name: ipedworker
         ports:
@@ -29,9 +29,24 @@ spec:
           requests:
             cpu: "12"
             memory: 32Gi
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 80
+          initialDelaySeconds: 20
+          timeoutSeconds: 5
+        livenessProbe:
+          # an http probe
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 60
+          timeoutSeconds: 5
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         env:
+        - name: IPEDJAR
+          value: /root/IPED/iped/iped.jar
         - name: LOCK_URL
           value: http://$(LOCKER_SERVICE_HOST):$(LOCKER_SERVICE_PORT)
         - name: NOTIFY_URL
