@@ -24,11 +24,11 @@ spec:
           protocol: TCP
         resources:
           limits:
-            cpu: "12"
-            memory: 32Gi
+            cpu: "16"
+            memory: 64Gi
           requests:
-            cpu: "12"
-            memory: 32Gi
+            cpu: "16"
+            memory: 64Gi
         readinessProbe:
           httpGet:
             path: /readiness
