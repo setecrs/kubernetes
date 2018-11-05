@@ -40,8 +40,8 @@ metadata:
   name: gearman
 spec:
   ports:
-  - name: "62004"
-    port: 62004
+  - name: default
+    port: 4730
     targetPort: 4730
   selector:
     io.kompose.service: gearman

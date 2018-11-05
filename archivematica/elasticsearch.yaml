@@ -67,8 +67,8 @@ metadata:
   name: elasticsearch
 spec:
   ports:
-  - name: "62002"
-    port: 62002
+  - name: default
+    port: 9200
     targetPort: 9200
   selector:
     io.kompose.service: elasticsearch

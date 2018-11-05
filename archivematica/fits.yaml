@@ -46,8 +46,8 @@ metadata:
   name: fits
 spec:
   ports:
-  - name: "62005"
-    port: 62005
+  - name: default
+    port: 2113
     targetPort: 2113
   selector:
     io.kompose.service: fits

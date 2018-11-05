@@ -1,3 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard
+spec:
+  ports:
+  - name: default
+    port: 8000
+    targetPort: 8000
+  selector:
+    io.kompose.service: dashboard
+status:
+  loadBalancer: {}
+
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -6,8 +21,8 @@ metadata:
     kompose.version: 1.15.0 (HEAD)
   creationTimestamp: null
   labels:
-    io.kompose.service: archivematica-dashboard
-  name: archivematica-dashboard
+    io.kompose.service: dashboard
+  name: dashboard
 spec:
   replicas: 1
   strategy:
@@ -16,7 +31,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: archivematica-dashboard
+        io.kompose.service: dashboard
     spec:
       containers:
       - env:
@@ -46,13 +61,15 @@ spec:
           value: '*'
         image: 192.168.2.191:5001/archivematica-dashboard:setec-1.0.0
         name: archivematica-dashboard
+        ports:
+        - containerPort: 8000
         resources: {}
         volumeMounts:
         - mountPath: /var/archivematica/sharedDirectory
           name: am-pipeline-data
       restartPolicy: Always
       volumes:
-     - name: am-pipeline-data
+      - name: am-pipeline-data
         persistentVolumeClaim:
           claimName: am-pipeline-data
 ---

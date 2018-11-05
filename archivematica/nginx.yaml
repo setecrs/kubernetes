@@ -10,7 +10,7 @@ data:
       client_max_body_size 256M;
       server_name _;
       location / { 
-        set $upstream_endpoint http://archivematica-dashboard:8000;
+        set $upstream_endpoint http://$(DASHBOARD_SERVICE_HOST):$(DASHBOARD_SERVICE_PORT);
     
         proxy_set_header Host $http_host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -25,7 +25,7 @@ data:
       client_max_body_size 256M;
       server_name _;
       location / { 
-        set $upstream_endpoint http://archivematica-storage-service:8000;
+        set $upstream_endpoint http://$(STORAGE_SERVICE_HOST):$(STORAGE_SERVICE_PORT);
     
         proxy_set_header Host $http_host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -57,7 +57,7 @@ data:
       access_log /var/log/nginx/access.log main;
       sendfile on; 
       keepalive_timeout 65; 
-      resolver 127.0.0.11;
+      resolver 127.0.0.1;
       include /etc/nginx/conf.d/*.conf;
     }
 ---
@@ -84,6 +84,7 @@ spec:
       containers:
       - image: nginx:stable-alpine
         name: nginx
+        command: ["cat", "/etc/nginx/conf.d/archivematica.conf"]
         ports:
         - containerPort: 80
         - containerPort: 8000
@@ -119,11 +120,11 @@ metadata:
   name: nginx
 spec:
   ports:
-  - name: "62080"
-    port: 62080
+  - name: dashboard
+    port: 80
     targetPort: 80
-  - name: "62081"
-    port: 62081
+  - name: storage
+    port: 8000
     targetPort: 8000
   selector:
     io.kompose.service: nginx
