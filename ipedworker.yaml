@@ -88,7 +88,7 @@ spec:
           user: admin
           secretRef:
             name: ceph-secret
-          path: /led/V1.24.00
+          path: /led/V1.25.01
         name: led
       - cephfs:
           monitors:
