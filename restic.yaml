@@ -1,0 +1,65 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: resticserver
+spec:
+  selector:
+    app: resticserver
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: resticserver
+  namespace: default
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: resticserver
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: resticserver
+    spec:
+      containers:
+      - image: restic/rest-server
+        imagePullPolicy: IfNotPresent
+        name: resticserver
+        command: ["rest-server"]
+        args: ["--path", "/operacoes/celulares/restic/"]
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "12"
+            memory: 32Gi
+          requests:
+            cpu: "12"
+            memory: 32Gi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /operacoes
+          name: operacoes
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - cephfs:
+          monitors:
+          - 192.168.2.42:6789
+          user: admin
+          secretRef:
+            name: ceph-secret
+          path: /operacoes/
+        name: operacoes
+

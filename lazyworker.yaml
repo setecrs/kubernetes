@@ -61,7 +61,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: lazyworker-daemon
+  name: lazyworker-3-14-5-1
   namespace: default
 spec:
   revisionHistoryLimit: 10
