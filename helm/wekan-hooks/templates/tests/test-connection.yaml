@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "wekan-hooks.fullname" . }}-test-connection"
+  labels:
+{{ include "wekan-hooks.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "wekan-hooks.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

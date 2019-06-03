@@ -1,0 +1,13 @@
+sardcloud01 ansible_ssh_host=sardcloud01
+sardcloud02 ansible_ssh_host=sardcloud02
+sardcloud03 ansible_ssh_host=sardcloud03
+sardcloud04 ansible_ssh_host=sardcloud04
+sardcloud05 ansible_ssh_host=sardcloud05
+sardcloud06 ansible_ssh_host=sardcloud06
+sardcloud07 ansible_ssh_host=sardcloud07
+sardcloud08 ansible_ssh_host=sardcloud08
+sardcloud09 ansible_ssh_host=sardcloud09
+sardcloud10 ansible_ssh_host=sardcloud10
+sardcloud11 ansible_ssh_host=sardcloud11
+sardcloud12 ansible_ssh_host=sardcloud12
+sardcloud13 ansible_ssh_host=sardcloud13
