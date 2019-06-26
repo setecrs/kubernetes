@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: setecrs/wekan-graphql
-  tag: 3.0.0
+  tag: 3.0.3
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -16,6 +16,10 @@ fullnameOverride: ""
 service:
   type: NodePort
   port: 80
+
+env:
+  - name: "REST_URL"
+    value: "http://$(WEKAN_SERVICE_HOST):$(WEKAN_SERVICE_PORT)"
 
 ingress:
   enabled: false

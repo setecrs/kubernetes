@@ -28,22 +28,10 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+          {{- if .Values.env }}
           env:
-            - name: "GRAPHQL_URL"
-              valueFrom:
-                secretKeyRef:
-                  key:  GRAPHQL_URL
-                  name: {{ .Release.Name }}-auth
-            - name: "USER"
-              valueFrom:
-                secretKeyRef:
-                  key:  USER
-                  name: {{ .Release.Name }}-auth
-            - name: "PASS"
-              valueFrom:
-                secretKeyRef:
-                  key:  PASS
-                  name: {{ .Release.Name }}-auth
+            {{- toYaml .Values.env | nindent 12 }}
+          {{ end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

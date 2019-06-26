@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: wekanteam/wekan
-  tag: v2.75
+  tag: v2.89
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -16,6 +16,16 @@ fullnameOverride: ""
 service:
   type: NodePort
   port: 80
+
+env:
+  - name: "MONGO_URL"
+    value: "mongodb://$(WEKANDB_SERVICE_HOST):27017/wekan"
+  - name: "ROOT_URL"
+    value: "http://sardrs.pf.gov.br:31952"
+  - name: "WITH_API"
+    value: "true"
+  - name: "BROWSER_POLICY_ENABLED"
+    value: "true"
 
 ingress:
   enabled: false

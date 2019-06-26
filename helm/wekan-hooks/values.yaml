@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: setecrs/wekan-hooks
-  tag: latest
+  tag: 1.0.1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -16,6 +16,23 @@ fullnameOverride: ""
 service:
   type: ClusterIP
   port: 80
+
+env:
+  - name: "GRAPHQL_URL"
+    valueFrom:
+      secretKeyRef:
+        key:  GRAPHQL_URL
+        name: {{ .Release.Name }}-auth
+  - name: "USER"
+    valueFrom:
+      secretKeyRef:
+        key:  USER
+        name: {{ .Release.Name }}-auth
+  - name: "PASS"
+    valueFrom:
+      secretKeyRef:
+        key:  PASS
+        name: {{ .Release.Name }}-auth
 
 ingress:
   enabled: false

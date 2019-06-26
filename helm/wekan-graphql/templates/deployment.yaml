@@ -24,9 +24,10 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.env }}
           env:
-            - name: "REST_URL"
-              value: "http://$(WEKAN_SERVICE_HOST):$(WEKAN_SERVICE_PORT)"
+            {{- toYaml .Values.env | nindent 12 }}
+          {{ end }}
           ports:
             - name: http
               containerPort: 4000
