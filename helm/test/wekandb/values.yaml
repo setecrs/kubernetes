@@ -1,33 +1,21 @@
-# Default values for wekan.
+# Default values for wekandb.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: wekanteam/wekan
-  tag: v2.89
+  repository: mongo
+  tag: 3.2.21
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
-nameOverride: ""
+nameOverride: "wekandb"
 fullnameOverride: ""
 
 service:
-  type: NodePort
-  port: 80
-
-env:
-  - name: "MONGO_URL"
-    value: "mongodb://$(WEKANDB_SERVICE_HOST):27017/wekan"
-  - name: "ROOT_URL"
-    value: "http://sardrs.pf.gov.br:31952"
-  - name: "WITH_API"
-    value: "true"
-  - name: "BROWSER_POLICY_ENABLED"
-    value: "true"
-    #- name: "DEBUG"
-    #value: "*"
+  type: ClusterIP
+  port: 27017
 
 ingress:
   enabled: false

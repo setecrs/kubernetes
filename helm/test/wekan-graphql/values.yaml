@@ -1,12 +1,12 @@
-# Default values for wekan.
+# Default values for wekan-graphql.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: wekanteam/wekan
-  tag: v2.89
+  repository: setecrs/wekan-graphql
+  tag: 3.1.1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -18,16 +18,8 @@ service:
   port: 80
 
 env:
-  - name: "MONGO_URL"
-    value: "mongodb://$(WEKANDB_SERVICE_HOST):27017/wekan"
-  - name: "ROOT_URL"
-    value: "http://sardrs.pf.gov.br:31952"
-  - name: "WITH_API"
-    value: "true"
-  - name: "BROWSER_POLICY_ENABLED"
-    value: "true"
-    #- name: "DEBUG"
-    #value: "*"
+  - name: "REST_URL"
+    value: "http://$(TEST_WEKAN_SERVICE_HOST):$(TEST_WEKAN_SERVICE_PORT)"
 
 ingress:
   enabled: false

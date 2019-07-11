@@ -19,9 +19,9 @@ service:
 
 env:
   - name: "MONGO_URL"
-    value: "mongodb://$(WEKANDB_SERVICE_HOST):27017/wekan"
+    value: "mongodb://$(TEST_WEKANDB_SERVICE_HOST):27017/wekan"
   - name: "ROOT_URL"
-    value: "http://sardrs.pf.gov.br:31952"
+    value: "http://sardcloud08:31698"
   - name: "WITH_API"
     value: "true"
   - name: "BROWSER_POLICY_ENABLED"

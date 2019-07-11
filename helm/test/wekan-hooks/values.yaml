@@ -1,12 +1,12 @@
-# Default values for wekan.
+# Default values for wekan-hooks.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: wekanteam/wekan
-  tag: v2.89
+  repository: setecrs/wekan-hooks
+  tag: 1.0.1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -14,20 +14,25 @@ nameOverride: ""
 fullnameOverride: ""
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 80
 
 env:
-  - name: "MONGO_URL"
-    value: "mongodb://$(WEKANDB_SERVICE_HOST):27017/wekan"
-  - name: "ROOT_URL"
-    value: "http://sardrs.pf.gov.br:31952"
-  - name: "WITH_API"
-    value: "true"
-  - name: "BROWSER_POLICY_ENABLED"
-    value: "true"
-    #- name: "DEBUG"
-    #value: "*"
+  - name: "GRAPHQL_URL"
+    valueFrom:
+      secretKeyRef:
+        key:  GRAPHQL_URL
+        name: test-wekan-hooks-auth
+  - name: "USER"
+    valueFrom:
+      secretKeyRef:
+        key:  USER
+        name: test-wekan-hooks-auth
+  - name: "PASS"
+    valueFrom:
+      secretKeyRef:
+        key:  PASS
+        name: test-wekan-hooks-auth
 
 ingress:
   enabled: false
