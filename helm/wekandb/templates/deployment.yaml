@@ -28,6 +28,8 @@ spec:
           volumeMounts:
             - mountPath: /data/db
               name: wekandb
+            - mountPath: /backup
+              name: backupwekandb
           ports:
             - name: mongo
               containerPort: 27017
@@ -43,6 +45,14 @@ spec:
               name: ceph-secret
             path: /k8s/wekandb/db
           name: wekandb
+        - cephfs:
+            monitors:
+              - 192.168.2.42:6789
+            user: admin
+            secretRef:
+              name: ceph-secret
+            path: /k8s/wekandb-backup
+          name: backupwekandb
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
