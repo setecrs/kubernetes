@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: setecrs/wekan-hooks
-  tag: 1.0.1
+  repository: 192.168.2.191:5001/setecrs/wekan-hooks
+  tag: 1.1.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -18,11 +18,8 @@ service:
   port: 80
 
 env:
-  - name: "GRAPHQL_URL"
-    valueFrom:
-      secretKeyRef:
-        key:  GRAPHQL_URL
-        name: test-wekan-hooks-auth
+  - name: "MONGO_URL"
+    value: "mongodb://test-wekandb:27017"
   - name: "USER"
     valueFrom:
       secretKeyRef:

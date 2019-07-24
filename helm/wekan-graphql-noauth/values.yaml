@@ -1,12 +1,12 @@
-# Default values for wekan-hooks.
+# Default values for wekan-graphql-noauth.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: setecrs/wekan-hooks
-  tag: 1.1.0
+  repository: setecrs/wekan-graphql-noauth
+  tag: 1.0.1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -14,22 +14,14 @@ nameOverride: ""
 fullnameOverride: ""
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 80
 
 env:
+  - name: "PORT"
+    value: "80"
   - name: "MONGO_URL"
-    value: "mongodb://wekan-hooks:27017"
-  - name: "USER"
-    valueFrom:
-      secretKeyRef:
-        key:  USER
-        name: wekan-hooks-auth
-  - name: "PASS"
-    valueFrom:
-      secretKeyRef:
-        key:  PASS
-        name: wekan-hooks-auth
+    value: "mongodb://$(WEKANDB_SERVICE_HOST):27017"
 
 ingress:
   enabled: false
