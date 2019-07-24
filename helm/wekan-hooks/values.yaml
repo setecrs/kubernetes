@@ -19,7 +19,7 @@ service:
 
 env:
   - name: "MONGO_URL"
-    value: "mongodb://$(WEKANDB_SERVICE_HOST):27017"
+    value: "mongodb://wekandb:27017"
   - name: "USER"
     valueFrom:
       secretKeyRef:
