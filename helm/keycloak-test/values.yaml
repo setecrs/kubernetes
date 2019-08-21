@@ -1,12 +1,12 @@
-# Default values for wekan-notifier.
+# Default values for keycloak-test.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: setecrs/wekan-notifier
-  tag: 1.0.1
+  repository: 192.168.2.191:5001/keycloak
+  tag: 1.0.5
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -14,29 +14,25 @@ nameOverride: ""
 fullnameOverride: ""
 
 service:
-  type: ClusterIP
-  port: 80
+  type: NodePort
+  port: 443
 
 env:
-  - name: "GRAPHQL_URL"
+  - name: "TLS_KEY_FILE"
+    value: "/certs/server.key"
+  - name: "TLS_CRT_FILE"
+    value: "/certs/server.pem"
+  - name: "CLIENT_ID"
     valueFrom:
       secretKeyRef:
-        key:  GRAPHQL_URL
-        name: wekan-hooks-auth
-  - name: "USER"
+        name: wekan-criminalistica
+        key:  CLIENT_ID
+  - name: "CLIENT_SECRET"
     valueFrom:
       secretKeyRef:
-        key:  USER
-        name: wekan-hooks-auth
-  - name: "PASS"
-    valueFrom:
-      secretKeyRef:
-        key:  PASS
-        name: wekan-hooks-auth
-  - name: "BOARD"
-    value: "Materiais"
-  - name: "LIST"
-    value: "Processamento"
+        name: wekan-criminalistica
+        key:  CLIENT_SECRET
+
 
 ingress:
   enabled: false
