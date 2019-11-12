@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "lamp-indeal.fullname" . }}-test-connection"
+  labels:
+{{ include "lamp-indeal.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "lamp-indeal.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

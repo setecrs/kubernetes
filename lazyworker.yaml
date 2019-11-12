@@ -52,7 +52,7 @@ metadata:
 spec:
   selector:
     app: lazyworker
-    version: 2.3.2-3.15.3
+    version: 2.3.4-3.15.6
   ports:
   - protocol: TCP
     port: 80
@@ -62,23 +62,23 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: lazyworker-2.3.2-3.15.3
+  name: lazyworker-2.3.4-3.15.6
   namespace: default
 spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: lazyworker
-      version: 2.3.2-3.15.3
+      version: 2.3.4-3.15.6
   template:
     metadata:
       creationTimestamp: null
       labels:
         app: lazyworker
-        version: 2.3.2-3.15.3
+        version: 2.3.4-3.15.6
     spec:
       containers:
-      - image: 192.168.2.191:5001/ipeddocker/worker-go:2.3.2-3.15.3
+      - image: 192.168.2.191:5001/ipeddocker/worker-go:2.3.4-3.15.6
         imagePullPolicy: IfNotPresent
         name: lazyworker
         ports:
