@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: 192.168.2.191:5001/ipeddocker/worker-go
-  tag: 2.3.9-3.16.1-beta-aidesk_apfs
+  tag: 2.3.8-3.15.6
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -38,6 +38,8 @@ volumeMounts:
     name: led
   - mountPath: /mnt/kff
     name: kff
+  - mountPath: /mnt/PhotoDNA
+    name: photodna
 
 volumes:
   - hostPath:
@@ -68,6 +70,14 @@ volumes:
         name: ceph-secret
       path: /kff/iped-kff-1.2
     name: kff
+  - cephfs:
+      monitors:
+      - 192.168.2.42:6789
+      user: admin
+      secretRef:
+        name: ceph-secret
+      path: /PhotoDNA
+    name: photodna
 
 
 ingress:
