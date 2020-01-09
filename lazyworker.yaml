@@ -52,7 +52,7 @@ metadata:
 spec:
   selector:
     app: lazyworker
-    version: 2.3.4-3.15.6
+    version: 2.3.10-3.16.2
   ports:
   - protocol: TCP
     port: 80
@@ -62,23 +62,23 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: lazyworker-2.3.4-3.15.6
+  name: lazyworker-2.3.10-3.16.2
   namespace: default
 spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: lazyworker
-      version: 2.3.4-3.15.6
+      version: 2.3.10-3.16.2
   template:
     metadata:
       creationTimestamp: null
       labels:
         app: lazyworker
-        version: 2.3.4-3.15.6
+        version: 2.3.10-3.16.2
     spec:
       containers:
-      - image: 192.168.2.191:5001/ipeddocker/worker-go:2.3.4-3.15.6
+      - image: 192.168.2.191:5001/ipeddocker/worker-go:2.3.10-3.16.2_apfs
         imagePullPolicy: IfNotPresent
         name: lazyworker
         ports:
@@ -99,7 +99,7 @@ spec:
         - name: LOCK_URL
           value: http://$(LOCKER_SERVICE_HOST):$(LOCKER_SERVICE_PORT)
         - name: NOTIFY_URL
-          value: http://$(MONGO_NOTIFIER_SERVICE_HOST):$(MONGO_NOTIFIER_SERVICE_PORT)
+          value: http://$(WEKAN_NOTIFIER_SERVICE_HOST):$(WEKAN_NOTIFIER_SERVICE_PORT)
         volumeMounts:
         - mountPath: /mnt/ipedtmp
           name: ipedtmp
@@ -111,6 +111,8 @@ spec:
           name: led
         - mountPath: /mnt/kff
           name: kff
+        - mountPath: /mnt/PhotoDNA
+          name: photodna
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -145,3 +147,11 @@ spec:
             name: ceph-secret
           path: /kff/iped-kff-1.2
         name: kff
+      - cephfs:
+          monitors:
+          - 192.168.2.42:6789
+          user: admin
+          secretRef:
+            name: ceph-secret
+          path: /PhotoDNA
+        name: photodna
