@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: setecrs/wekan-watcher
-  tag: 2.1.2
+  tag: 2.2.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -14,7 +14,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
 
 env:
