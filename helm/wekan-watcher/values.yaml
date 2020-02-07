@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: setecrs/wekan-watcher
-  tag: 2.1.1
+  tag: 2.1.2
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
