@@ -28,7 +28,7 @@ spec:
         app: efetch
     spec:
       containers:
-      - image: 192.168.2.191:5001/atilaromero/efetch
+      - image: atilaromero/efetch
         imagePullPolicy: IfNotPresent
         name: efetch
         command: ["efetch"]
