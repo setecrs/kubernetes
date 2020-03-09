@@ -455,7 +455,12 @@ nodeExporter:
   ## Node tolerations for node-exporter scheduling to nodes with taints
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   ##
-  tolerations: []
+  tolerations:
+    - key: "node-role.kubernetes.io/master"
+      operator: "Exists"
+      effect: "NoSchedule"
+
+  
     # - key: "key"
     #   operator: "Equal|Exists"
     #   value: "value"
@@ -868,7 +873,7 @@ server:
     loadBalancerSourceRanges: []
     servicePort: 80
     sessionAffinity: None
-    type: ClusterIP
+    type: LoadBalancer
 
     ## Enable gRPC port on service to allow auto discovery with thanos-querier
     gRPC:
