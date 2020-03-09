@@ -5,12 +5,15 @@ metadata:
     storageclass.kubernetes.io/is-default-class: "true"
   name: rbd
 parameters:
+  adminId: admin
   adminSecretName: ceph-admin-secret
   adminSecretNamespace: default
   imageFeatures: layering
   imageFormat: "2"
   monitors: 192.168.2.42:6789
-  userSecretName: ceph-user-secret
+  pool: rbd
+  userId: admin
+  userSecretName: ceph-admin-secret
   userSecretNamespace: default
 provisioner: ceph.com/rbd
 reclaimPolicy: Delete
