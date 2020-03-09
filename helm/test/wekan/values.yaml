@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: wekanteam/wekan
-  tag: v2.89
+  tag: v3.77
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []

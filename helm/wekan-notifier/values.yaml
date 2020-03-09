@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: setecrs/wekan-notifier
-  tag: 1.0.1
+  tag: 1.0.3
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
