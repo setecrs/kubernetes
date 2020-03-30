@@ -24,17 +24,17 @@ env:
     valueFrom:
       secretKeyRef:
         key: LDAP_BASE_DN
-        name: {{ .Release.Name }}
+        name: sard-admin
   - name: "LDAP_ADMIN_PASSWORD"
     valueFrom:
       secretKeyRef:
         key: LDAP_ADMIN_PASSWORD
-        name: {{ .Release.Name }}
+        name: sard-admin
   - name: "SID"
     valueFrom:
       secretKeyRef:
         key: SID
-        name: {{ .Release.Name }}
+        name: sard-admin
 
 ingress:
   enabled: false
