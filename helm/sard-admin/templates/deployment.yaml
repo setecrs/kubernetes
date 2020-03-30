@@ -45,6 +45,8 @@ spec:
           volumeMounts:
             - name: operacoes
               mountPath: /operacoes
+            - name: operacoes
+              mountPath: /mnt/cloud/operacoes
       volumes:
         - name: operacoes
           cephfs:
@@ -53,7 +55,7 @@ spec:
             user: admin
             secretRef:
               name: ceph-secret
-            path: /mnt/cloud/operacoes
+            path: /operacoes
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
