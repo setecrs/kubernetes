@@ -42,6 +42,18 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: operacoes
+              mountPath: /operacoes
+      volumes:
+        - name: operacoes
+          cephfs:
+            monitors:
+              - 192.168.2.42:6789
+            user: admin
+            secretRef:
+              name: ceph-secret
+            path: /mnt/cloud/operacoes
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
