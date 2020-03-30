@@ -17,6 +17,25 @@ service:
   type: LoadBalancer
   port: 80
 
+env:
+  - name: "LDAP_SERVER"
+    value: ldap01
+  - name: "LDAP_BASE_DN"
+    valueFrom:
+      secretKeyRef:
+        key: LDAP_BASE_DN
+        name: {{ .Release.Name }}
+  - name: "LDAP_ADMIN_PASSWORD"
+    valueFrom:
+      secretKeyRef:
+        key: LDAP_ADMIN_PASSWORD
+        name: {{ .Release.Name }}
+  - name: "SID"
+    valueFrom:
+      secretKeyRef:
+        key: SID
+        name: {{ .Release.Name }}
+
 ingress:
   enabled: false
   annotations: {}
