@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: setecrs/sard-admin
-  tag: 2.0.7
+  tag: 2.0.9
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -34,6 +34,11 @@ env:
     valueFrom:
       secretKeyRef:
         key: SID
+        name: sard-admin
+  - name: "JWT_SECRET"
+    valueFrom:
+      secretKeyRef:
+        key: JWT_SECRET
         name: sard-admin
 
 ingress:
