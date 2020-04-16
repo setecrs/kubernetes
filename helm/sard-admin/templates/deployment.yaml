@@ -47,6 +47,8 @@ spec:
               mountPath: /operacoes
             - name: operacoes
               mountPath: /mnt/cloud/operacoes
+            - name: home
+              mountPath: /home
       volumes:
         - name: operacoes
           cephfs:
@@ -56,6 +58,14 @@ spec:
             secretRef:
               name: ceph-secret
             path: /operacoes
+        - name: home
+          cephfs:
+            monitors:
+              - 192.168.2.42:6789
+            user: admin
+            secretRef:
+              name: ceph-secret
+            path: /export/home
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
