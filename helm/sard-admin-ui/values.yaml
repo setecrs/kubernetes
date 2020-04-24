@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: setecrs/sard-admin-ui
-  tag: 2.0.8
+  tag: 2.1.7
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
