@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "rancherconfig.fullname" . }}-test-connection"
+  labels:
+{{ include "rancherconfig.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "rancherconfig.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
