@@ -11,6 +11,14 @@ spec:
       targetPort: http
       protocol: UDP
       name: http
+    - port: {{ .Values.service.aux1 }}
+      targetPort: aux1
+      protocol: UDP
+      name: aux1
+    - port: {{ .Values.service.aux2 }}
+      targetPort: aux2
+      protocol: UDP
+      name: aux2
   selector:
     app.kubernetes.io/name: {{ include "tftp.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

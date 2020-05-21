@@ -28,9 +28,16 @@ spec:
           env:
             {{- toYaml .Values.env | nindent 12 }}
           {{- end }}
+          command: ["/usr/sbin/in.tftpd","-L","-vvv","-s", "/srv/tftp","--port-range", "1000:1001" ]
           ports:
             - name: http
               containerPort: 69
+              protocol: UDP
+            - name: aux1
+              containerPort: 1000
+              protocol: UDP
+            - name: aux2
+              containerPort: 1001
               protocol: UDP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

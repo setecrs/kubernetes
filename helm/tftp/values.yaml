@@ -11,7 +11,7 @@ image:
 
 env:
   - name: RANCHER_CONFIG_URL
-    value: http://${RANCHERCONFIG_SERVICE_HOST}/Imager.yml
+    value: http://192.168.2.82/Imager.yml
 
 imagePullSecrets: []
 nameOverride: ""
@@ -20,7 +20,8 @@ fullnameOverride: ""
 service:
   type: LoadBalancer
   port: 69
-  protocol: UDP
+  aux1: 1000
+  aux2: 1001
 
 ingress:
   enabled: false
