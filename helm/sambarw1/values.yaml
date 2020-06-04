@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: setecrs/samba
-  tag: 1.0.4
+  tag: 1.0.5
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -19,7 +19,7 @@ service:
 
 env:
   - name: "LDAP_SERVER"
-    value: ldap01
+    value: 192.168.2.4
   - name: "LDAP_BASE_DN"
     valueFrom:
       secretKeyRef:
