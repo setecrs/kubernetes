@@ -1496,6 +1496,14 @@ extraScrapeConfigs: |
           - "192.168.2.42:9283"
           - "192.168.2.43:9283"
           - "192.168.2.44:9283"
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: 
+          - "192.168.2.191:9322"
+  - job_name: 'prometheus-node-exporter'
+    static_configs:
+      - targets: 
+          - "192.168.2.191:9100"
   # - job_name: 'prometheus-blackbox-exporter'
   #   metrics_path: /probe
   #   params:
