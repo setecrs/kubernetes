@@ -37,6 +37,8 @@ env:
         name: sard-admin
   - name: "WORKGROUP"
     value: SETECRS
+  - name: "READ_ONLY"
+    value: no
 
 ingress:
   enabled: false
