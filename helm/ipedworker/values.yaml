@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: ipeddocker/worker-go
-  tag: 2.4.0-3.17.1_9
+  tag: 2.4.0-3.18.2
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -40,12 +40,22 @@ volumeMounts:
     name: kff
   - mountPath: /mnt/PhotoDNA
     name: photodna
+  - mountPath: /root/IPED/iped/profiles
+    name: ipedprofiles
 
 volumes:
   - hostPath:
       path: /mnt/ipedtmp/
       type: Directory
     name: ipedtmp
+  - cephfs:
+      monitors:
+      - 192.168.2.42:6789
+      user: admin
+      secretRef:
+        name: ceph-secret
+      path: /iped_profiles/
+    name: ipedprofiles
   - cephfs:
       monitors:
       - 192.168.2.42:6789
