@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: ipeddocker/worker-go
-  tag: 2.4.0-3.18.2
+  tag: 2.4.0-3.17.1_9
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
