@@ -185,7 +185,7 @@ alertmanager:
 
     ## alertmanager data Persistent Volume size
     ##
-    size: 2Gi
+    size: 10Gi
 
     ## alertmanager data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
@@ -745,7 +745,7 @@ server:
 
     ## Prometheus server data Persistent Volume size
     ##
-    size: 8Gi
+    size: 80Gi
 
     ## Prometheus server data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
@@ -1065,7 +1065,7 @@ pushgateway:
 
     ## pushgateway data Persistent Volume size
     ##
-    size: 2Gi
+    size: 10Gi
 
     ## pushgateway data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
@@ -1504,6 +1504,12 @@ extraScrapeConfigs: |
     static_configs:
       - targets: 
           - "192.168.2.191:9100"
+  - job_name: 'rdp'
+    static_configs:
+      - targets: 
+          - "192.168.5.101:9182"
+          - "192.168.5.102:9182"
+          - "192.168.5.103:9182"
   # - job_name: 'prometheus-blackbox-exporter'
   #   metrics_path: /probe
   #   params:
